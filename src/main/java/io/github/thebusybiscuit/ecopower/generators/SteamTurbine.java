@@ -1,5 +1,8 @@
 package io.github.thebusybiscuit.ecopower.generators;
 
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -9,12 +12,13 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
+import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SimpleSlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.handlers.GeneratorTicker;
+import me.mrCookieSlime.Slimefun.api.Slimefun;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
 public class SteamTurbine extends SimpleSlimefunItem<GeneratorTicker> implements EnergyNetComponent {
@@ -41,19 +45,34 @@ public class SteamTurbine extends SimpleSlimefunItem<GeneratorTicker> implements
     public GeneratorTicker getItemHandler() {
         return new GeneratorTicker() {
 
+            // A Thread-safe concurrent HashSet
+            private final Set<Location> validTurbines = ConcurrentHashMap.newKeySet();
+
             @Override
             public double generateEnergy(Location l, SlimefunItem item, Config data) {
-                Block water = l.getBlock().getRelative(BlockFace.DOWN);
-                Block magma = water.getRelative(BlockFace.DOWN);
+                int power = validTurbines.remove(l) ? generatedPower : 0;
 
-                if (water.getType() != Material.WATER || magma.getType() != Material.MAGMA_BLOCK) {
-                    return 0;
+                Slimefun.runSync(() -> {
+                    if (validateLocation(l)) {
+                        // Mark the turbine as valid (if valid)
+                        validTurbines.add(l);
+                    }
+                });
+
+                return power;
+            }
+
+            private boolean validateLocation(Location l) {
+                Block water = l.getBlock().getRelative(BlockFace.DOWN);
+
+                // A Bubble Column is water above a Magma Block
+                if (water.getType() != Material.BUBBLE_COLUMN) {
+                    return false;
                 }
 
                 water.setType(Material.AIR);
-                l.getWorld().spawnParticle(Particle.CAMPFIRE_SIGNAL_SMOKE, l.getX(), l.getY() + 0.5, l.getZ(), 4, 0, 0.7, 0);
-
-                return generatedPower;
+                l.getWorld().spawnParticle(Particle.CAMPFIRE_SIGNAL_SMOKE, l.getX() + 0.5, l.getY(), l.getZ() + 0.5, 3, 0, 0.4, 0, 0.01);
+                return true;
             }
 
             @Override

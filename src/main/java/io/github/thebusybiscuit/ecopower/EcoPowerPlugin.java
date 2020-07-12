@@ -37,7 +37,7 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
         new Metrics(this, 8154);
 
         ItemStack categoryItem = new CustomItem(SlimefunUtils.getCustomHead("240775c3ad75763613f32f04986881bbe4eee4366d0c57f17f7c7514e2d0a77d"), "&2Eco-Power Generators");
-        Category category = new Category(new NamespacedKey(this, "generators"), categoryItem);
+        Category category = new Category(new NamespacedKey(this, "generators"), categoryItem, 4);
 
         SlimefunItemStack rotor = new SlimefunItemStack("STEEL_ROTOR", "c51944b488e11cda65177d5911d651282b3012665e63b8929e1b6a4744b7ca8", "&bSteel Rotor");
         new SteelRotor(category, rotor, new ItemStack[] {
@@ -46,22 +46,23 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
                 null, SlimefunItems.STEEL_INGOT, null
         }, new SlimefunItemStack(rotor, 2)).register(this);
         
-        registerSteamTurbine(category, "STEAM_TURBINE", "&aSimple Steam Turbine", MachineTier.MEDIUM, 4, new ItemStack[] {
+        SteamTurbine simpleTurbine = registerSteamTurbine(category, "STEAM_TURBINE", "&eSimple Steam Turbine", MachineTier.MEDIUM, 4, new ItemStack[] {
                 null, rotor, null,
                 SlimefunItems.STEEL_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.STEEL_INGOT,
                 null, SlimefunItems.COPPER_WIRE, null
         });
     }
 
-    private void registerSteamTurbine(Category category, String id, String name, MachineTier tier, int power, ItemStack[] recipe) {
+    private SteamTurbine registerSteamTurbine(Category category, String id, String name, MachineTier tier, int power, ItemStack[] recipe) {
         final String texture = "aefd921cb61594324f3c09d7ac7d38185d2734333968f3ac38382cddf15f6d71";
         
-        SlimefunItemStack turbineItem = new SlimefunItemStack(id, texture, name, "&7Component of the " + name + "Generator", LoreBuilder.machine(tier, MachineType.MACHINE));
+        SlimefunItemStack turbineItem = new SlimefunItemStack(id, texture, name, "&7Component of the " + name + " Generator");
         SteamTurbine turbine = new SteamTurbine(category, turbineItem, power, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
         turbine.register(this);
 
         SlimefunItemStack multiblockItem = new SlimefunItemStack(id + "_MULTIBLOCK", texture, name + " Generator", "", LoreBuilder.machine(tier, MachineType.GENERATOR), LoreBuilder.powerBuffer(0), LoreBuilder.powerPerSecond(power * 2));
         new SteamTurbineMultiblock(category, multiblockItem, turbine).register(this);
+        return turbine;
     }
 
     @Override
