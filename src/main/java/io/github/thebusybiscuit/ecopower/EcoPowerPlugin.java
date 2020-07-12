@@ -52,10 +52,16 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
                 null, SlimefunItems.COPPER_WIRE, null
         });
         
-        registerSteamTurbine(category, "STEAM_TURBINE_2", "&cAdvanced Steam Turbine", MachineTier.ADVANCED, 6, new ItemStack[] {
+        SteamTurbine advancedTurbine = registerSteamTurbine(category, "STEAM_TURBINE_2", "&cAdvanced Steam Turbine", MachineTier.ADVANCED, 6, new ItemStack[] {
                 null, rotor, null,
                 SlimefunItems.BRASS_INGOT, simpleTurbine.getItem(), SlimefunItems.BRASS_INGOT,
                 SlimefunItems.BRASS_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.BRASS_INGOT
+        });
+        
+        registerSteamTurbine(category, "STEAM_TURBINE_3", "&4Carbonado Steam Turbine", MachineTier.END_GAME, 13, new ItemStack[] {
+                null, rotor, null,
+                SlimefunItems.CARBONADO, advancedTurbine.getItem(), SlimefunItems.CARBONADO,
+                SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.REINFORCED_ALLOY_INGOT
         });
     }
 
