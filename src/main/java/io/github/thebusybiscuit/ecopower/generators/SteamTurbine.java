@@ -71,7 +71,7 @@ public class SteamTurbine extends SimpleSlimefunItem<GeneratorTicker> implements
                 }
 
                 water.setType(Material.AIR);
-                l.getWorld().spawnParticle(Particle.CAMPFIRE_SIGNAL_SMOKE, l.getX() + 0.5, l.getY(), l.getZ() + 0.5, 3, 0, 0.4, 0, 0.01);
+                l.getWorld().spawnParticle(Particle.CAMPFIRE_SIGNAL_SMOKE, l.getX() + 0.5, l.getY(), l.getZ() + 0.5, 3, 0, 0.4, 0, 0.005);
                 return true;
             }
 

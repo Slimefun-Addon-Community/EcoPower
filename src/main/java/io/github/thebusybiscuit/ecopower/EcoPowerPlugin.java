@@ -5,6 +5,8 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.thebusybiscuit.ecopower.generators.HighEnergySolarGenerator;
+import io.github.thebusybiscuit.ecopower.generators.LunarGenerator;
 import io.github.thebusybiscuit.ecopower.generators.SteamTurbine;
 import io.github.thebusybiscuit.ecopower.generators.SteamTurbineMultiblock;
 import io.github.thebusybiscuit.ecopower.items.SteelRotor;
@@ -12,6 +14,7 @@ import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.implementation.items.electric.generators.SolarGenerator;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
@@ -63,6 +66,24 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
                 SlimefunItems.CARBONADO, advancedTurbine.getItem(), SlimefunItems.CARBONADO,
                 SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.REINFORCED_ALLOY_INGOT
         });
+        
+        LunarGenerator lunarGenerator = registerLunarGenerator(category, "LUNAR_GENERATOR", "afdd9e588d2461d2d3d058cb3e0af2b3a3367607aa14d124ed92a833f25fb112", "&5Lunar Generator", 128, new ItemStack[] {
+                new ItemStack(Material.PHANTOM_MEMBRANE), SlimefunItems.SOLAR_GENERATOR_4, new ItemStack(Material.PHANTOM_MEMBRANE),
+                SlimefunItems.DAMASCUS_STEEL_INGOT, SlimefunItems.CARBONADO, SlimefunItems.DAMASCUS_STEEL_INGOT,
+                SlimefunItems.COPPER_WIRE, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.COPPER_WIRE
+        });
+        
+        SolarGenerator solarGenerator = registerHighEnergySolarGenerator(category, "HIGH_ENERGY_SOLAR_GENERATOR", "c4fe135c311f7086edcc5e6dbc4ef4b23f819fddaa42f827dac46e3574de2287", "&9High-Energy Solar Generator", 256, new ItemStack[] {
+                SlimefunItems.SOLAR_GENERATOR_2, lunarGenerator.getItem(), SlimefunItems.SOLAR_GENERATOR_2,
+                SlimefunItems.CARBONADO, SlimefunItems.POWER_CRYSTAL, SlimefunItems.CARBONADO,
+                SlimefunItems.BLISTERING_INGOT_3, new ItemStack(Material.NETHER_STAR), SlimefunItems.BLISTERING_INGOT_3
+        });
+        
+        registerHighEnergySolarGenerator(category, "RADIANT_SOLAR_GENERATOR", "240775c3ad75763613f32f04986881bbe4eee4366d0c57f17f7c7514e2d0a77d", "&9Radiant Solar Generator", 512, new ItemStack[] {
+                lunarGenerator.getItem(), solarGenerator.getItem(), lunarGenerator.getItem(),
+                SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.POWER_CRYSTAL, SlimefunItems.BLISTERING_INGOT_3,
+                SlimefunItems.REINFORCED_PLATE, SlimefunItems.CARBONADO, SlimefunItems.REINFORCED_PLATE
+        });
     }
 
     private SteamTurbine registerSteamTurbine(Category category, String id, String name, MachineTier tier, int power, ItemStack[] recipe) {
@@ -75,6 +96,22 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
         SlimefunItemStack multiblockItem = new SlimefunItemStack(id + "_MULTIBLOCK", texture, name + " Generator", "", LoreBuilder.machine(tier, MachineType.GENERATOR), LoreBuilder.powerBuffer(0), LoreBuilder.powerPerSecond(power * 2));
         new SteamTurbineMultiblock(category, multiblockItem, turbine).register(this);
         return turbine;
+    }
+    
+    private LunarGenerator registerLunarGenerator(Category category, String id, String texture, String name, int power, ItemStack[] recipe) {
+        SlimefunItemStack item = new SlimefunItemStack(id, texture, name, "", "&fThis Lunar Generator only", "&7runs at night!", "", LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR), LoreBuilder.powerBuffer(0), LoreBuilder.powerPerSecond(power * 2));
+    
+        LunarGenerator generator = new LunarGenerator(category, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe, power);
+        generator.register(this);
+        return generator;
+    }
+    
+    private HighEnergySolarGenerator registerHighEnergySolarGenerator(Category category, String id, String texture, String name, int power, ItemStack[] recipe) {
+        SlimefunItemStack item = new SlimefunItemStack(id, texture, name, "", "&fThis Solar Generator runs", "&7all day and night!", "", LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR), LoreBuilder.powerBuffer(0), LoreBuilder.powerPerSecond(power * 2));
+    
+        HighEnergySolarGenerator generator = new HighEnergySolarGenerator(category, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe, power);
+        generator.register(this);
+        return generator;
     }
 
     @Override
