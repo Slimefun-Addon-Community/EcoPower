@@ -9,13 +9,14 @@ import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunIte
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 
 public class SteamTurbineMultiblock extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
     public SteamTurbineMultiblock(Category category, SlimefunItemStack item, SteamTurbine turbine) {
         super(category, item, RecipeType.MULTIBLOCK, new ItemStack[] {
                 null, turbine.getItem(), null,
-                null, new ItemStack(Material.WATER_BUCKET), null,
+                null, new CustomItem(Material.WATER_BUCKET, "&fWater (Bubble Column)"), null,
                 null, new ItemStack(Material.MAGMA_BLOCK), null
         });
     }
