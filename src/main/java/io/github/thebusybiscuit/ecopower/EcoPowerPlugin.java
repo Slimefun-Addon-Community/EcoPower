@@ -75,7 +75,7 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
                 SlimefunItems.REINFORCED_PLATE, SlimefunItems.ENERGY_REGULATOR, SlimefunItems.REINFORCED_PLATE
         });
         
-        LunarGenerator lunarGenerator = registerLunarGenerator(category, "LUNAR_GENERATOR", "afdd9e588d2461d2d3d058cb3e0af2b3a3367607aa14d124ed92a833f25fb112", "&5Lunar Generator", 128, new ItemStack[] {
+        LunarGenerator lunarGenerator = registerLunarGenerator(category, "LUNAR_GENERATOR", "&5Lunar Generator", 128, new ItemStack[] {
                 new ItemStack(Material.PHANTOM_MEMBRANE), SlimefunItems.SOLAR_GENERATOR_4, new ItemStack(Material.PHANTOM_MEMBRANE),
                 SlimefunItems.DAMASCUS_STEEL_INGOT, SlimefunItems.CARBONADO, SlimefunItems.DAMASCUS_STEEL_INGOT,
                 SlimefunItems.COPPER_WIRE, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.COPPER_WIRE
@@ -121,7 +121,8 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
         return receptor;
     }
     
-    private LunarGenerator registerLunarGenerator(Category category, String id, String texture, String name, int power, ItemStack[] recipe) {
+    private LunarGenerator registerLunarGenerator(Category category, String id, String name, int power, ItemStack[] recipe) {
+        final String texture = "afdd9e588d2461d2d3d058cb3e0af2b3a3367607aa14d124ed92a833f25fb112";
         SlimefunItemStack item = new SlimefunItemStack(id, texture, name, "", "&fThis Lunar Generator only", "&fruns at night!", "", LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR), LoreBuilder.powerBuffer(0), LoreBuilder.powerPerSecond(power * 2));
     
         LunarGenerator generator = new LunarGenerator(category, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe, power);
