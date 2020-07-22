@@ -9,22 +9,7 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
 public class HighEnergySolarGenerator extends SolarGenerator {
 
-    private final int energyGenerated;
-
     public HighEnergySolarGenerator(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int energy) {
         super(category, energy, energy, item, recipeType, recipe);
-        
-        this.energyGenerated = energy;
     }
-
-    @Override
-    public int getDayEnergy() {
-        return energyGenerated;
-    }
-
-    @Override
-    public int getNightEnergy() {
-        return getDayEnergy();
-    }
-
 }
