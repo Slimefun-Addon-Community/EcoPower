@@ -12,18 +12,18 @@ public class HighEnergySolarGenerator extends SolarGenerator {
     private final int energyGenerated;
 
     public HighEnergySolarGenerator(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int energy) {
-        super(category, item, recipeType, recipe);
+        super(category, energy, energy, item, recipeType, recipe);
         
         this.energyGenerated = energy;
     }
 
     @Override
-    public double getDayEnergy() {
+    public int getDayEnergy() {
         return energyGenerated;
     }
 
     @Override
-    public double getNightEnergy() {
+    public int getNightEnergy() {
         return getDayEnergy();
     }
 

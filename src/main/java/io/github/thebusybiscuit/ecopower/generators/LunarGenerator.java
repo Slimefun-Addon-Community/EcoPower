@@ -12,18 +12,18 @@ public class LunarGenerator extends SolarGenerator {
     private final int energyGenerated;
 
     public LunarGenerator(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int energy) {
-        super(category, item, recipeType, recipe);
+        super(category, energy, 0, item, recipeType, recipe);
 
         this.energyGenerated = energy;
     }
 
     @Override
-    public double getDayEnergy() {
+    public int getDayEnergy() {
         return 0;
     }
 
     @Override
-    public double getNightEnergy() {
+    public int getNightEnergy() {
         return energyGenerated;
     }
 
