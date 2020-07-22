@@ -57,7 +57,7 @@
         <dependency>
             <groupId>com.github.TheBusyBiscuit</groupId>
             <artifactId>CS-CoreLib</artifactId>
-            <version>6e17183656</version>
+            <version>9dd4a1cf8d</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -74,7 +74,7 @@
         <dependency>
             <groupId>com.github.TheBusyBiscuit</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>RC-14</version>
+            <version>ba4282c3e7</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
