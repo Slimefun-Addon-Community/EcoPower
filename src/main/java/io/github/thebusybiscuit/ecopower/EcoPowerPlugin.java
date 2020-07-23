@@ -1,15 +1,11 @@
 package io.github.thebusybiscuit.ecopower;
 
+import io.github.thebusybiscuit.ecopower.generators.*;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import io.github.thebusybiscuit.ecopower.generators.HighEnergySolarGenerator;
-import io.github.thebusybiscuit.ecopower.generators.LightningReceptor;
-import io.github.thebusybiscuit.ecopower.generators.LunarGenerator;
-import io.github.thebusybiscuit.ecopower.generators.SteamTurbine;
-import io.github.thebusybiscuit.ecopower.generators.SteamTurbineMultiblock;
 import io.github.thebusybiscuit.ecopower.items.SteelRotor;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
@@ -44,13 +40,15 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
         ItemStack categoryItem = new CustomItem(SlimefunUtils.getCustomHead("240775c3ad75763613f32f04986881bbe4eee4366d0c57f17f7c7514e2d0a77d"), "&2Eco-Power Generators");
         Category category = new Category(new NamespacedKey(this, "generators"), categoryItem, 4);
 
+
+
         SlimefunItemStack rotor = new SlimefunItemStack("STEEL_ROTOR", "c51944b488e11cda65177d5911d651282b3012665e63b8929e1b6a4744b7ca8", "&bSteel Rotor");
         new SteelRotor(category, rotor, new ItemStack[] {
                 null, SlimefunItems.STEEL_INGOT, null,
                 SlimefunItems.STEEL_INGOT, new ItemStack(Material.IRON_BLOCK), SlimefunItems.STEEL_INGOT,
                 null, SlimefunItems.STEEL_INGOT, null
         }, new SlimefunItemStack(rotor, 2)).register(this);
-        
+
         SteamTurbine simpleTurbine = registerSteamTurbine(category, "STEAM_TURBINE", "&eSimple Steam Turbine", MachineTier.MEDIUM, 4, new ItemStack[] {
                 null, rotor, null,
                 SlimefunItems.STEEL_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.STEEL_INGOT,
@@ -66,6 +64,24 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
         registerSteamTurbine(category, "STEAM_TURBINE_3", "&4Carbonado Steam Turbine", MachineTier.END_GAME, 13, new ItemStack[] {
                 null, rotor, null,
                 SlimefunItems.CARBONADO, advancedTurbine.getItem(), SlimefunItems.CARBONADO,
+                SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.REINFORCED_ALLOY_INGOT
+        });
+
+        WindTurbine simpleWindTurbine = registerWindTurbine(category, "WIND_TURBINE", "&eSimple Wind Turbine", MachineTier.MEDIUM, 4, new ItemStack[] {
+                null, rotor, null,
+                SlimefunItems.STEEL_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.STEEL_INGOT,
+                null, SlimefunItems.COPPER_WIRE, null
+        });
+
+        WindTurbine advancedWindTurbine = registerWindTurbine(category, "WIND_TURBINE_2", "&cAdvanced Wind Turbine", MachineTier.ADVANCED, 6, new ItemStack[] {
+                null, rotor, null,
+                SlimefunItems.BRASS_INGOT, simpleWindTurbine.getItem(), SlimefunItems.BRASS_INGOT,
+                SlimefunItems.BRASS_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.BRASS_INGOT
+        });
+
+        registerWindTurbine(category, "WIND_TURBINE_3", "&4Carbonado Wind Turbine", MachineTier.END_GAME, 13, new ItemStack[] {
+                null, rotor, null,
+                SlimefunItems.CARBONADO, advancedWindTurbine.getItem(), SlimefunItems.CARBONADO,
                 SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.REINFORCED_ALLOY_INGOT
         });
         
@@ -98,6 +114,18 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
                 SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.POWER_CRYSTAL, SlimefunItems.BLISTERING_INGOT_3,
                 SlimefunItems.REINFORCED_PLATE, SlimefunItems.CARBONADO, SlimefunItems.REINFORCED_PLATE
         });
+    }
+
+    private WindTurbine registerWindTurbine(Category category, String id, String name, MachineTier tier, int power, ItemStack[] recipe) {
+        final String texture = "d23e4ce096e00eae6aba10d356b785c3fecc5aa3d7dad4a4a2a27ed7750df981";
+
+        SlimefunItemStack turbineItem = new SlimefunItemStack(id, texture, name, "&7Component of the " + name + " Generator");
+        WindTurbine turbine = new WindTurbine(category, turbineItem, power, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
+        turbine.register(this);
+
+        SlimefunItemStack multiblockItem = new SlimefunItemStack(id + "_MULTIBLOCK", texture, name + " Generator", "", LoreBuilder.machine(tier, MachineType.GENERATOR), LoreBuilder.powerBuffer(0), LoreBuilder.powerPerSecond(power * 2));
+        new WindTurbineMultiblock(category, multiblockItem, turbine).register(this);
+        return turbine;
     }
 
     private SteamTurbine registerSteamTurbine(Category category, String id, String name, MachineTier tier, int power, ItemStack[] recipe) {
