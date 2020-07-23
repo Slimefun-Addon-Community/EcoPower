@@ -67,22 +67,22 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
                 SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.REINFORCED_ALLOY_INGOT
         });
 
-        WindTurbine simpleWindTurbine = registerWindTurbine(category, "WIND_TURBINE", "&eSimple Wind Turbine", MachineTier.MEDIUM, 4, new ItemStack[] {
+        WindTurbine simpleWindTurbine = registerWindTurbine(category, "WIND_TURBINE", "&eSimple Wind Turbine", MachineTier.MEDIUM, 5, new ItemStack[] {
                 null, rotor, null,
-                SlimefunItems.STEEL_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.STEEL_INGOT,
+                SlimefunItems.STEEL_THRUSTER, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.STEEL_THRUSTER,
                 null, SlimefunItems.COPPER_WIRE, null
         });
 
-        WindTurbine advancedWindTurbine = registerWindTurbine(category, "WIND_TURBINE_2", "&cAdvanced Wind Turbine", MachineTier.ADVANCED, 6, new ItemStack[] {
+        WindTurbine advancedWindTurbine = registerWindTurbine(category, "WIND_TURBINE_2", "&cAdvanced Wind Turbine", MachineTier.ADVANCED, 11, new ItemStack[] {
                 null, rotor, null,
-                SlimefunItems.BRASS_INGOT, simpleWindTurbine.getItem(), SlimefunItems.BRASS_INGOT,
-                SlimefunItems.BRASS_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.BRASS_INGOT
+                SlimefunItems.ELECTRO_MAGNET, simpleWindTurbine.getItem(), SlimefunItems.ELECTRO_MAGNET,
+                SlimefunItems.ALUMINUM_BRASS_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.ALUMINUM_BRASS_INGOT
         });
 
-        registerWindTurbine(category, "WIND_TURBINE_3", "&4Carbonado Wind Turbine", MachineTier.END_GAME, 13, new ItemStack[] {
-                null, rotor, null,
-                SlimefunItems.CARBONADO, advancedWindTurbine.getItem(), SlimefunItems.CARBONADO,
-                SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.REINFORCED_ALLOY_INGOT
+        registerWindTurbine(category, "WIND_TURBINE_3", "&4Carbonado Wind Turbine", MachineTier.END_GAME, 23, new ItemStack[] {
+                SlimefunItems.FERROSILICON, rotor, SlimefunItems.FERROSILICON,
+                SlimefunItems.ELECTRIC_MOTOR, advancedWindTurbine.getItem(), SlimefunItems.ELECTRIC_MOTOR,
+                SlimefunItems.CARBONADO, SlimefunItems.FERROSILICON, SlimefunItems.CARBONADO
         });
         
         registerLightningReceptor(category, "LIGHTNING_RECEPTOR", "&eLightning Receptor", 512, 8192, new ItemStack[] {
