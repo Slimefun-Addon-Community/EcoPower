@@ -1,11 +1,18 @@
 package io.github.thebusybiscuit.ecopower;
 
-import io.github.thebusybiscuit.ecopower.generators.*;
+
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.thebusybiscuit.ecopower.generators.HighEnergySolarGenerator;
+import io.github.thebusybiscuit.ecopower.generators.LightningReceptor;
+import io.github.thebusybiscuit.ecopower.generators.LunarGenerator;
+import io.github.thebusybiscuit.ecopower.generators.SteamTurbine;
+import io.github.thebusybiscuit.ecopower.generators.SteamTurbineMultiblock;
+import io.github.thebusybiscuit.ecopower.generators.WindTurbine;
+import io.github.thebusybiscuit.ecopower.generators.WindTurbineMultiblock;
 import io.github.thebusybiscuit.ecopower.items.SteelRotor;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;

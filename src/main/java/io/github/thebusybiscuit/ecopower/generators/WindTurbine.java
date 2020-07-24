@@ -8,22 +8,16 @@ import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.Slimefun;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import me.mrCookieSlime.Slimefun.cscorelib2.blocks.Vein;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Directional;
-import org.bukkit.block.data.Rotatable;
+import org.bukkit.block.data.type.Fence;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 public class WindTurbine extends SlimefunItem implements EnergyNetProvider {
 
@@ -63,6 +57,12 @@ public class WindTurbine extends SlimefunItem implements EnergyNetProvider {
 
     private boolean validateLocation(Location l) {
         Block b = l.getBlock();
+        Block fence1 = b.getRelative(BlockFace.DOWN);
+        Block fence2 = b.getRelative(BlockFace.DOWN, 2);
+
+        if (!(fence1.getBlockData() instanceof Fence) || !(fence2.getBlockData() instanceof Fence)) {
+            return false;
+        }
 
         for (BlockFace face : airFaces) {
             if (b.getRelative(face).getType() != Material.AIR) {
