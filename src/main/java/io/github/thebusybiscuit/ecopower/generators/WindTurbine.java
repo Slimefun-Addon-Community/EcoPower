@@ -60,7 +60,7 @@ public class WindTurbine extends SlimefunItem implements EnergyNetProvider {
         Block fence1 = b.getRelative(BlockFace.DOWN);
         Block fence2 = b.getRelative(BlockFace.DOWN, 2);
 
-        if (Tag.WOODEN_FENCES.isTagged(fence1.getType()) && Tag.WOODEN_FENCES.isTagged(fence2.getType())) {
+        if (!Tag.WOODEN_FENCES.isTagged(fence1.getType()) || !Tag.WOODEN_FENCES.isTagged(fence2.getType())) {
             return false;
         }
 
