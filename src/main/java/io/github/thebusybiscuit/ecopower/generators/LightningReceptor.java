@@ -5,21 +5,26 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
 import org.bukkit.Location;
+import org.bukkit.entity.LightningStrike;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
+import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
-import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
-import me.mrCookieSlime.Slimefun.Objects.handlers.GeneratorTicker;
 import me.mrCookieSlime.Slimefun.api.Slimefun;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
+/**
+ * The {@link LightningReceptor} attracts a {@link LightningStrike} during thunderstorms
+ * and harnesses it' electrical energy.
+ * 
+ * @author TheBusyBiscuit
+ *
+ */
 public class LightningReceptor extends SlimefunItem implements EnergyNetProvider {
 
     private static final long MIN_DELAY = TimeUnit.MINUTES.toMillis(8);

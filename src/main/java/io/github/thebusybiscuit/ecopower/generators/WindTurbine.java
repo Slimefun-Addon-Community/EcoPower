@@ -1,5 +1,15 @@
 package io.github.thebusybiscuit.ecopower.generators;
 
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Tag;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.inventory.ItemStack;
+
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
@@ -8,17 +18,15 @@ import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.Slimefun;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Tag;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
+/**
+ * The {@link WindTurbine} generates energy when placed in the air and on top of fences.
+ * 
+ * @author poma123
+ * 
+ * @see SteamTurbine
+ *
+ */
 public class WindTurbine extends SlimefunItem implements EnergyNetProvider {
 
     private static final BlockFace[] airFaces = { BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST };

@@ -19,6 +19,14 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * The {@link SteamTurbine} generates energy when placed above bubbling water.
+ * 
+ * @author TheBusyBiscuit
+ * 
+ * @see WindTurbine
+ *
+ */
 public class SteamTurbine extends SlimefunItem implements EnergyNetProvider {
 
     private final Set<Location> validTurbines = ConcurrentHashMap.newKeySet();
