@@ -11,9 +11,9 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.type.Fence;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Set;
@@ -60,12 +60,12 @@ public class WindTurbine extends SlimefunItem implements EnergyNetProvider {
         Block fence1 = b.getRelative(BlockFace.DOWN);
         Block fence2 = b.getRelative(BlockFace.DOWN, 2);
 
-        if (!(fence1.getBlockData() instanceof Fence) || !(fence2.getBlockData() instanceof Fence)) {
+        if (Tag.WOODEN_FENCES.isTagged(fence1.getType()) && Tag.WOODEN_FENCES.isTagged(fence2.getType())) {
             return false;
         }
 
         for (BlockFace face : airFaces) {
-            if (b.getRelative(face).getType() != Material.AIR) {
+            if (!b.getRelative(face).isEmpty()) {
                 return false;
             }
         }
