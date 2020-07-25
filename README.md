@@ -10,6 +10,7 @@ You can find a list of all the new ways you can generate power right below:
 * Lunar Generator (works only at night)
 * Better Solar Helmet
 * Steam Turbines (powered by placing above water and a magma block)
+* Wind Turbines
 * Lightning Receptors (transform lightning strikes into useable electricity -> [video](https://youtu.be/mAntFr0c1gg))
 
 ## Download EcoPower
