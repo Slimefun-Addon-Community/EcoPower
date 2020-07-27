@@ -18,6 +18,7 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.gadgets.SolarHelmet;
+import io.github.thebusybiscuit.slimefun4.implementation.items.electric.generators.BioGenerator;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.generators.SolarGenerator;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
@@ -119,6 +120,35 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
                 SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.POWER_CRYSTAL, SlimefunItems.BLISTERING_INGOT_3,
                 SlimefunItems.REINFORCED_PLATE, SlimefunItems.CARBONADO, SlimefunItems.REINFORCED_PLATE
         });
+
+        BioGenerator mediumBioReactor = registerHighEnergyBioReactor(category, "MEDIUM_ENERGY_BIO_REACTOR", "&2Medium-Energy Bio Reactor", MachineTier.ADVANCED, 128, 24, new ItemStack[] {
+                SlimefunItems.HEATING_COIL, SlimefunItems.COMPOSTER, SlimefunItems.HEATING_COIL,
+                SlimefunItems.ALUMINUM_BRASS_INGOT, SlimefunItems.BIO_REACTOR, SlimefunItems.ALUMINUM_BRASS_INGOT,
+                SlimefunItems.REINFORCED_PLATE, SlimefunItems.ALUMINUM_BRASS_INGOT, SlimefunItems.REINFORCED_PLATE
+        });
+
+        registerHighEnergyBioReactor(category, "HIGH_ENERGY_BIO_REACTOR", "&2High-Energy Bio Reactor", MachineTier.END_GAME, 4288, 128, new ItemStack[] {
+                SlimefunItems.HEATING_COIL, SlimefunItems.COMPOSTER, SlimefunItems.HEATING_COIL,
+                SlimefunItems.REINFORCED_PLATE, mediumBioReactor.getItem(), SlimefunItems.REINFORCED_PLATE,
+                SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.LARGE_CAPACITOR, SlimefunItems.BLISTERING_INGOT_3
+        });
+    }
+
+    private BioGenerator registerHighEnergyBioReactor(Category category, String id, String name, MachineTier tier, int buffer, int power, ItemStack[] recipe) {
+        SlimefunItemStack reactorItem = new SlimefunItemStack(id, Material.LIME_TERRACOTTA, name, "", LoreBuilder.machine(tier, MachineType.GENERATOR), LoreBuilder.powerBuffer(buffer*2), LoreBuilder.powerPerSecond(power*2));
+        BioGenerator reactor = new BioGenerator(category, reactorItem, RecipeType.ENHANCED_CRAFTING_TABLE, recipe) {
+            @Override
+            public int getEnergyProduction() {
+                return power;
+            }
+
+            @Override
+            public int getCapacity() {
+                return buffer;
+            }
+        };
+        reactor.register(this);
+        return reactor;
     }
 
     private WindTurbine registerWindTurbine(Category category, String id, String name, MachineTier tier, int power, ItemStack[] recipe) {
