@@ -71,7 +71,7 @@ public class SteamTurbine extends SlimefunItem implements EnergyNetProvider {
         }
 
         water.setType(Material.AIR);
-        l.getWorld().playSound(l, Sound.BLOCK_FIRE_EXTINGUISH, 0.2F, 1);
+        l.getWorld().playSound(l, Sound.BLOCK_FIRE_EXTINGUISH, 0.05F, 1);
         l.getWorld().spawnParticle(Particle.CAMPFIRE_SIGNAL_SMOKE, l.getX() + 0.5, l.getY(), l.getZ() + 0.5, 1, 0, 0.4, 0, 0.01);
         return true;
     }

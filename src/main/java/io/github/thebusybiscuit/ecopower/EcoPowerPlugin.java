@@ -54,37 +54,37 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
                 null, SlimefunItems.STEEL_INGOT, null
         }, new SlimefunItemStack(rotor, 2)).register(this);
 
-        SteamTurbine simpleTurbine = registerSteamTurbine(category, "STEAM_TURBINE", "&eSimple Steam Turbine", MachineTier.MEDIUM, 4, new ItemStack[] {
+        SteamTurbine simpleTurbine = registerSteamTurbine(category, "STEAM_TURBINE", "aefd921cb61594324f3c09d7ac7d38185d2734333968f3ac38382cddf15f6d71", "&eSimple Steam Turbine", MachineTier.MEDIUM, 4, new ItemStack[] {
                 null, rotor, null,
                 SlimefunItems.STEEL_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.STEEL_INGOT,
                 null, SlimefunItems.COPPER_WIRE, null
         });
         
-        SteamTurbine advancedTurbine = registerSteamTurbine(category, "STEAM_TURBINE_2", "&cAdvanced Steam Turbine", MachineTier.ADVANCED, 6, new ItemStack[] {
+        SteamTurbine advancedTurbine = registerSteamTurbine(category, "STEAM_TURBINE_2", "161aad79fb748bff1e6e94d4b6a5a277cc961c1a9abfe2a4ed88baab8a2b5971", "&cAdvanced Steam Turbine", MachineTier.ADVANCED, 6, new ItemStack[] {
                 null, rotor, null,
                 SlimefunItems.BRASS_INGOT, simpleTurbine.getItem(), SlimefunItems.BRASS_INGOT,
                 SlimefunItems.BRASS_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.BRASS_INGOT
         });
         
-        registerSteamTurbine(category, "STEAM_TURBINE_3", "&4Carbonado Steam Turbine", MachineTier.END_GAME, 13, new ItemStack[] {
+        registerSteamTurbine(category, "STEAM_TURBINE_3", "b65e29a67860d82f66afe1060ec8a9ceacc8c7afe108f5d42f52ba854b0a62dc", "&4Carbonado Steam Turbine", MachineTier.END_GAME, 13, new ItemStack[] {
                 null, rotor, null,
                 SlimefunItems.CARBONADO, advancedTurbine.getItem(), SlimefunItems.CARBONADO,
                 SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.REINFORCED_ALLOY_INGOT
         });
 
-        WindTurbine simpleWindTurbine = registerWindTurbine(category, "WIND_TURBINE", "&eSimple Wind Turbine", MachineTier.MEDIUM, 5, new ItemStack[] {
+        WindTurbine simpleWindTurbine = registerWindTurbine(category, "WIND_TURBINE", "d23e4ce096e00eae6aba10d356b785c3fecc5aa3d7dad4a4a2a27ed7750df981", "&eSimple Wind Turbine", MachineTier.MEDIUM, 5, new ItemStack[] {
                 null, rotor, null,
                 SlimefunItems.STEEL_THRUSTER, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.STEEL_THRUSTER,
                 null, SlimefunItems.COPPER_WIRE, null
         });
 
-        WindTurbine advancedWindTurbine = registerWindTurbine(category, "WIND_TURBINE_2", "&cAdvanced Wind Turbine", MachineTier.ADVANCED, 11, new ItemStack[] {
+        WindTurbine advancedWindTurbine = registerWindTurbine(category, "WIND_TURBINE_2", "2df9e595dbeac33f43b37dd4ffbc234ea0fa7c3f98aad77dc906ce5d6783c79d", "&cAdvanced Wind Turbine", MachineTier.ADVANCED, 11, new ItemStack[] {
                 null, rotor, null,
                 SlimefunItems.ELECTRO_MAGNET, simpleWindTurbine.getItem(), SlimefunItems.ELECTRO_MAGNET,
                 SlimefunItems.ALUMINUM_BRASS_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.ALUMINUM_BRASS_INGOT
         });
 
-        registerWindTurbine(category, "WIND_TURBINE_3", "&4Carbonado Wind Turbine", MachineTier.END_GAME, 23, new ItemStack[] {
+        registerWindTurbine(category, "WIND_TURBINE_3", "3fcef461b43f06ef9d58c94065bbf41b77a10050520b44082d5f66f6dbe71da0", "&4Carbonado Wind Turbine", MachineTier.END_GAME, 23, new ItemStack[] {
                 SlimefunItems.FERROSILICON, rotor, SlimefunItems.FERROSILICON,
                 SlimefunItems.ELECTRIC_MOTOR, advancedWindTurbine.getItem(), SlimefunItems.ELECTRIC_MOTOR,
                 SlimefunItems.CARBONADO, SlimefunItems.FERROSILICON, SlimefunItems.CARBONADO
@@ -121,9 +121,7 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
         });
     }
 
-    private WindTurbine registerWindTurbine(Category category, String id, String name, MachineTier tier, int power, ItemStack[] recipe) {
-        final String texture = "d23e4ce096e00eae6aba10d356b785c3fecc5aa3d7dad4a4a2a27ed7750df981";
-
+    private WindTurbine registerWindTurbine(Category category, String id, String texture, String name, MachineTier tier, int power, ItemStack[] recipe) {
         SlimefunItemStack turbineItem = new SlimefunItemStack(id, texture, name, "&7Component of the " + name + " Generator");
         WindTurbine turbine = new WindTurbine(category, turbineItem, power, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
         turbine.register(this);
@@ -133,9 +131,7 @@ public class EcoPowerPlugin extends JavaPlugin implements SlimefunAddon {
         return turbine;
     }
 
-    private SteamTurbine registerSteamTurbine(Category category, String id, String name, MachineTier tier, int power, ItemStack[] recipe) {
-        final String texture = "aefd921cb61594324f3c09d7ac7d38185d2734333968f3ac38382cddf15f6d71";
-        
+    private SteamTurbine registerSteamTurbine(Category category, String id, String texture, String name, MachineTier tier, int power, ItemStack[] recipe) {
         SlimefunItemStack turbineItem = new SlimefunItemStack(id, texture, name, "&7Component of the " + name + " Generator");
         SteamTurbine turbine = new SteamTurbine(category, turbineItem, power, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
         turbine.register(this);
