@@ -5,9 +5,11 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
@@ -15,7 +17,6 @@ import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
-import me.mrCookieSlime.Slimefun.api.Slimefun;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
 /**
@@ -60,7 +61,8 @@ public class LightningReceptor extends SlimefunItem implements EnergyNetProvider
 
         if (ThreadLocalRandom.current().nextInt(100) < CHANCE) {
             lastLightningStrike.put(l, System.currentTimeMillis());
-            Slimefun.runSync(() -> l.getWorld().strikeLightningEffect(l));
+            JavaPlugin plugin = getAddon().getJavaPlugin();
+            Bukkit.getScheduler().runTask(plugin, () -> l.getWorld().strikeLightningEffect(l));
             return ThreadLocalRandom.current().nextInt(minPower, maxPower);
         }
 
