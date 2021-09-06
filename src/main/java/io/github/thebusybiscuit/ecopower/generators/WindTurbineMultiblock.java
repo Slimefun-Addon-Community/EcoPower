@@ -3,13 +3,13 @@ package io.github.thebusybiscuit.ecopower.generators;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuide;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
 /**
  * This is the multiblock variant of the {@link WindTurbine}, as shown in the {@link SlimefunGuide}.
@@ -19,8 +19,8 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
  */
 public class WindTurbineMultiblock extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
-    public WindTurbineMultiblock(Category category, SlimefunItemStack item, WindTurbine turbine) {
-        super(category, item, RecipeType.MULTIBLOCK, new ItemStack[] {
+    public WindTurbineMultiblock(ItemGroup itemGroup, SlimefunItemStack item, WindTurbine turbine) {
+        super(itemGroup, item, RecipeType.MULTIBLOCK, new ItemStack[] {
                 null, turbine.getItem(), null,
                 null, new ItemStack(Material.OAK_FENCE), null,
                 null, new ItemStack(Material.OAK_FENCE), null

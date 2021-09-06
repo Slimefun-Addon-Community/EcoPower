@@ -11,13 +11,13 @@ import org.bukkit.entity.LightningStrike;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
 /**
  * The {@link LightningReceptor} attracts a {@link LightningStrike} during thunderstorms
@@ -35,8 +35,8 @@ public class LightningReceptor extends SlimefunItem implements EnergyNetProvider
     private final int minPower;
     private final int maxPower;
 
-    public LightningReceptor(Category category, SlimefunItemStack item, int min, int max, RecipeType recipeType, ItemStack[] recipe) {
-        super(category, item, recipeType, recipe);
+    public LightningReceptor(ItemGroup itemGroup, SlimefunItemStack item, int min, int max, RecipeType recipeType, ItemStack[] recipe) {
+        super(itemGroup, item, recipeType, recipe);
 
         this.minPower = min;
         this.maxPower = max;
